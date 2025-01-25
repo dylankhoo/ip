@@ -18,11 +18,20 @@ public class Groot {
         Groot.grootRunning = grootRunning;
     }
 
-    //TODO: Add support for multi-line text
     public static void say(String text){
         printBorder();
         System.out.println(SPACE + "I am Groot!");
         System.out.println(SPACE + GREEN + text + RESET);
+        printBorder();
+        System.out.print("\n$");
+    }
+
+    public static void say(ArrayList<String> text){
+        printBorder();
+        System.out.println(SPACE + "I am Groot!");
+        for(String line : text){
+            System.out.println(SPACE + GREEN + line + RESET);
+        }
         printBorder();
         System.out.println();
     }
@@ -41,56 +50,51 @@ public class Groot {
     }
 
     public static void listTask(){
-        printBorder();
-        System.out.println(SPACE + "I am Groot!");
+        ArrayList<String> taskListText = new ArrayList<>();
+        taskListText.add("Here is what you have to do:");
         for(int i = 0; i < taskList.size(); i++){
-            System.out.println(SPACE + GREEN + (i + 1) + "." + taskList.get(i).getDescription() + RESET);
+            taskListText.add(SPACE + (i + 1) + "." + taskList.get(i).getDescription());
         }
-        printBorder();
+        say(taskListText);
+    }
+
+    
+    //TODO: Handle case where second argument is not an Integer
+    public static void handleMark(String command){
+        String[] commandParts = command.split(" ");
+        if(commandParts.length < 2){
+            say("No task number specified!");
+            return;
+        }
+        if(commandParts.length > 2){
+            say("Too many arguments!");
+            return;
+        }
+        int taskNum = Integer.parseInt(commandParts[1]);
+        if(taskNum < 1 || taskNum > taskList.size()){
+                say("Invalid task number!");
+                return;
+        }
+        ArrayList<String> markText = new ArrayList<>();
+        if(commandParts[0].equals("mark")){
+            taskList.get(taskNum - 1).setDone(true); 
+            markText.add("I've marked this task as done.");
+        }
+        else{
+            taskList.get(taskNum - 1).setDone(false);
+            markText.add("I've marked this task as not done.");
+        }
+        markText.add(SPACE + taskList.get(taskNum - 1).getDescription());
+        say(markText);
     }
 
     //TODO: More robust command string handling needed
     public static void handleCommand(String command){
         String[] commandParts = command.split(" ", 2);
-
-        //TODO: Handle case where second argument is not an Integer
-        //TODO: Support multiple arguments for mark, unmark
-        if(commandParts[0].equals("mark")){
-            if(commandParts.length < 2){
-                say("No task number specified!");
-                return;
-            }
-            int taskNum = Integer.parseInt(commandParts[1]);  
-            if(taskNum < 1 || taskNum > taskList.size()){
-                say("Invalid task number!");
-                return;
-            }
-            taskList.get(taskNum - 1).setDone(true);
-            printBorder();
-            System.out.println(SPACE + "I am Groot!");
-            System.out.println(SPACE + GREEN + "I've marked this task as done." + RESET);
-            System.out.println(SPACE + GREEN + taskList.get(taskNum - 1).getDescription() + RESET);
-            printBorder();
+        if(commandParts[0].equals("mark") || commandParts[0].equals("unmark")){
+            handleMark(command);
             return;
         }
-        else if(commandParts[0].equals("unmark")){
-            if(commandParts.length < 2){
-                say("No task number specified!");
-                return;
-            }
-            int taskNum = Integer.parseInt(commandParts[1]);  
-            if(taskNum < 1 || taskNum > taskList.size()){
-                say("Invalid task number!");
-                return;
-            }
-            taskList.get(taskNum - 1).setDone(false);
-            System.out.println(SPACE + "I am Groot!");
-            System.out.println(SPACE + GREEN + "I've marked this task as not done." + RESET);
-            System.out.println(SPACE + GREEN + taskList.get(taskNum - 1).getDescription() + RESET);
-            printBorder();
-            return;
-        }
-
         switch (command) {
             case "bye":
                 setRunning(false);
