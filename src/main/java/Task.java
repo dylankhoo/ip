@@ -15,4 +15,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public void setDone(boolean done){
+        isDone = done;
+    }
 }

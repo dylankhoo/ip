@@ -17,7 +17,8 @@ public class Groot {
     public static void setRunning (boolean grootRunning){
         Groot.grootRunning = grootRunning;
     }
-    
+
+    //TODO: Add support for multi-line text
     public static void say(String text){
         printBorder();
         System.out.println(SPACE + "I am Groot!");
@@ -45,9 +46,51 @@ public class Groot {
         for(int i = 0; i < taskList.size(); i++){
             System.out.println(SPACE + GREEN + (i + 1) + "." + taskList.get(i).getDescription() + RESET);
         }
+        printBorder();
     }
 
+    //TODO: More robust command string handling needed
     public static void handleCommand(String command){
+        String[] commandParts = command.split(" ", 2);
+
+        //TODO: Handle case where second argument is not an Integer
+        //TODO: Support multiple arguments for mark, unmark
+        if(commandParts[0].equals("mark")){
+            if(commandParts.length < 2){
+                say("No task number specified!");
+                return;
+            }
+            int taskNum = Integer.parseInt(commandParts[1]);  
+            if(taskNum < 1 || taskNum > taskList.size()){
+                say("Invalid task number!");
+                return;
+            }
+            taskList.get(taskNum - 1).setDone(true);
+            printBorder();
+            System.out.println(SPACE + "I am Groot!");
+            System.out.println(SPACE + GREEN + "I've marked this task as done." + RESET);
+            System.out.println(SPACE + GREEN + taskList.get(taskNum - 1).getDescription() + RESET);
+            printBorder();
+            return;
+        }
+        else if(commandParts[0].equals("unmark")){
+            if(commandParts.length < 2){
+                say("No task number specified!");
+                return;
+            }
+            int taskNum = Integer.parseInt(commandParts[1]);  
+            if(taskNum < 1 || taskNum > taskList.size()){
+                say("Invalid task number!");
+                return;
+            }
+            taskList.get(taskNum - 1).setDone(false);
+            System.out.println(SPACE + "I am Groot!");
+            System.out.println(SPACE + GREEN + "I've marked this task as not done." + RESET);
+            System.out.println(SPACE + GREEN + taskList.get(taskNum - 1).getDescription() + RESET);
+            printBorder();
+            return;
+        }
+
         switch (command) {
             case "bye":
                 setRunning(false);
