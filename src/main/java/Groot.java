@@ -1,29 +1,59 @@
+import java.util.Scanner;
+
 public class Groot {
 
+    public static boolean grootRunning;
     public static String GREEN = "\u001B[32m";
     public static String RESET = "\033[0m";
+    public static String SPACE = "\t";
+
+    public static void printBorder(){
+        System.out.println(SPACE + "________________________________________");
+    }
+
+    public static void setRunning (boolean grootRunning){
+        Groot.grootRunning = grootRunning;
+    }
     
     public static void say(String text){
-        System.out.println("I am Groot");
-        System.out.println(GREEN + text + "\n" + RESET);
+        printBorder();
+        System.out.println(SPACE + "I am Groot!");
+        System.out.println(SPACE + GREEN + text + RESET);
+        printBorder();
+        System.out.println();
     }
 
     public static void greet(){
-        say("Hello! How may I help?\n");
+        say("Hello! How may I help?");
     }
 
     public static void exit(){
         say("Goodbye! See you again soon.");
     }
 
+    public static void handleCommand(String command){
+        switch (command) {
+            case "bye":
+                setRunning(false);
+                exit();
+                break;
+            default:
+                say(command);
+        }
+    }
+
     public static void main(String[] args) {
-        String logo ="  ____ ____   ___   ___ _____\n" 
-               + " / ___|  _ \\ / _ \\ / _ \\_   _|     /\\\n"
-               + "| |  _| |_) | | | | | | || |      /  \\\n"  
-               + "| |_| |  _ <| |_| | |_| || |     /____\\\n"  
-               + " \\____|_| \\_\\\\___/ \\___/ |_|       ||\n";  
-        System.out.println("I am\n" + GREEN + logo + RESET);
+        String logo = SPACE + "  ____ ____   ___   ___ _____\n" 
+               + SPACE + " / ___|  _ \\ / _ \\ / _ \\_   _|     /\\\n"
+               + SPACE + "| |  _| |_) | | | | | | || |      /  \\\n"  
+               + SPACE + "| |_| |  _ <| |_| | |_| || |     /____\\\n"  
+               + SPACE + " \\____|_| \\_\\\\___/ \\___/ |_|       ||\n";  
+        System.out.println(SPACE + "I am\n" + GREEN + logo + RESET);
         greet();
-        exit();
+        setRunning(true);
+        while(grootRunning){
+            Scanner input = new Scanner(System.in);
+            handleCommand(input.nextLine());
+        }
     }
 }  
