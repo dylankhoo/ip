@@ -23,7 +23,9 @@ public class Groot {
         System.out.println(SPACE + "I am Groot!");
         System.out.println(SPACE + GREEN + text + RESET);
         printBorder();
-        System.out.print("\n$");
+        if(grootRunning){
+            System.out.print("\n$");
+        }
     }
 
     public static void say(ArrayList<String> text){
@@ -33,7 +35,7 @@ public class Groot {
             System.out.println(SPACE + GREEN + line + RESET);
         }
         printBorder();
-        System.out.println();
+        System.out.print("\n$");
     }
 
     public static void greet(){
@@ -41,6 +43,7 @@ public class Groot {
     }
 
     public static void exit(){
+        setRunning(false);
         say("Goodbye! See you again soon.");
     }
 
@@ -70,22 +73,28 @@ public class Groot {
             say("Too many arguments!");
             return;
         }
-        int taskNum = Integer.parseInt(commandParts[1]);
-        if(taskNum < 1 || taskNum > taskList.size()){
-                say("Invalid task number!");
-                return;
+        try{
+            int taskNum = Integer.parseInt(commandParts[1]);
+            if(taskNum < 1 || taskNum > taskList.size()){
+                    say("Invalid task number!");
+                    return;
+            }
+
+            ArrayList<String> markText = new ArrayList<>();
+            if(commandParts[0].equals("mark")){
+                taskList.get(taskNum - 1).setDone(true); 
+                markText.add("I've marked this task as done.");
+            }
+            else{
+                taskList.get(taskNum - 1).setDone(false);
+                markText.add("I've marked this task as not done.");
+            }
+            markText.add(SPACE + taskList.get(taskNum - 1).getDescription());
+            say(markText);
         }
-        ArrayList<String> markText = new ArrayList<>();
-        if(commandParts[0].equals("mark")){
-            taskList.get(taskNum - 1).setDone(true); 
-            markText.add("I've marked this task as done.");
+        catch (NumberFormatException e) {
+            say("Task number must be an integer!");
         }
-        else{
-            taskList.get(taskNum - 1).setDone(false);
-            markText.add("I've marked this task as not done.");
-        }
-        markText.add(SPACE + taskList.get(taskNum - 1).getDescription());
-        say(markText);
     }
 
     //TODO: More robust command string handling needed
@@ -97,7 +106,6 @@ public class Groot {
         }
         switch (command) {
             case "bye":
-                setRunning(false);
                 exit();
                 break;
             case "list":
@@ -115,8 +123,8 @@ public class Groot {
                + SPACE + "| |_| |  _ <| |_| | |_| || |     /____\\\n"  
                + SPACE + " \\____|_| \\_\\\\___/ \\___/ |_|       ||\n";  
         System.out.println(SPACE + "I am\n" + GREEN + logo + RESET);
-        greet();
         setRunning(true);
+        greet();
         while(grootRunning){
             Scanner input = new Scanner(System.in);
             handleCommand(input.nextLine());
