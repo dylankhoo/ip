@@ -4,7 +4,7 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getDescription(){
@@ -15,7 +15,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setDone(boolean done){
-        isDone = done;
+    public void setDone(boolean isDone){
+        this.isDone = isDone;
     }
 }
