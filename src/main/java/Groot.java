@@ -1,11 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Groot {
 
     private static boolean grootRunning;
-    private static List<String> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
     public static String GREEN = "\u001B[32m";
     public static String RESET = "\033[0m";
     public static String SPACE = "\t";
@@ -36,14 +36,14 @@ public class Groot {
 
     public static void addTask(String task){
         say("added: " + task);
-        taskList.add(task);
+        taskList.add(new Task(task));
     }
 
     public static void listTask(){
         printBorder();
         System.out.println(SPACE + "I am Groot!");
         for(int i = 0; i < taskList.size(); i++){
-            System.out.println(SPACE + GREEN + (i + 1) + ". " + taskList.get(i) + RESET);
+            System.out.println(SPACE + GREEN + (i + 1) + "." + taskList.get(i).getDescription() + RESET);
         }
     }
 
