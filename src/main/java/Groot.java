@@ -1,8 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Groot {
 
-    public static boolean grootRunning;
+    private static boolean grootRunning;
+    private static List<String> taskList = new ArrayList<>();
     public static String GREEN = "\u001B[32m";
     public static String RESET = "\033[0m";
     public static String SPACE = "\t";
@@ -31,14 +34,30 @@ public class Groot {
         say("Goodbye! See you again soon.");
     }
 
+    public static void addTask(String task){
+        say("added: " + task);
+        taskList.add(task);
+    }
+
+    public static void listTask(){
+        printBorder();
+        System.out.println(SPACE + "I am Groot!");
+        for(int i = 0; i < taskList.size(); i++){
+            System.out.println(SPACE + GREEN + (i + 1) + ". " + taskList.get(i) + RESET);
+        }
+    }
+
     public static void handleCommand(String command){
         switch (command) {
             case "bye":
                 setRunning(false);
                 exit();
                 break;
+            case "list":
+                listTask();
+                break;
             default:
-                say(command);
+                addTask(command);
         }
     }
 
