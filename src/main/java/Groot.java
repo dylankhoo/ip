@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import org.w3c.dom.events.Event;
+
 import java.util.ArrayList;
 public class Groot {
 
@@ -45,9 +48,30 @@ public class Groot {
         say("Goodbye! See you again soon.");
     }
 
-    public static void addTask(String task){
-        say("added: " + task);
-        taskList.add(new Task(task));
+    public static void addTask(String[] commandParts)
+    {
+        if (commandParts.length < 2) {
+            say("No task type specified!");
+            return;
+        }
+        String taskType = commandParts[0];
+        String taskDescription = commandParts[1];
+
+        switch (taskType) {
+        case "todo":
+            taskList.add(new Todo(taskDescription));
+            break;
+        case "deadline":
+            taskList.add(new Deadline(taskDescription));
+            break;
+        case "event":
+            taskList.add(new Event(taskDescription));
+            break;
+        default:
+            taskList.add(new Task(taskDescription));
+            break;
+        }
+        say("added: " + taskDescription);
     }
 
     public static void listTask(){
@@ -56,6 +80,7 @@ public class Groot {
         for (int i = 0; i < taskList.size(); i++) {
             taskListText.add(INDENT + (i + 1) + "." + taskList.get(i).getDescription());
         }
+        taskListText.add("You have " + taskList.size() + " left");
         say(taskListText);
     }
 
@@ -106,7 +131,7 @@ public class Groot {
             listTask();
             break;
         default:
-            addTask(command);
+            addTask(commandParts);
             break;
         }
     }
