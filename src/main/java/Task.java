@@ -7,7 +7,11 @@ public class Task {
         isDone = false;
     }
 
-    public String getDescription(){
+    public static Task createTask(String description) {
+        return new Task(description.trim());
+    }
+
+    public String getDescription() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
@@ -15,7 +19,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setDone(boolean isDone){
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 }

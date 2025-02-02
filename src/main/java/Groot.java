@@ -1,7 +1,4 @@
 import java.util.Scanner;
-
-import org.w3c.dom.events.Event;
-
 import java.util.ArrayList;
 public class Groot {
 
@@ -11,15 +8,15 @@ public class Groot {
     public static final String COLOR_RESET = "\033[0m";
     public static final String INDENT = "    ";
 
-    public static void printBorder(){
+    public static void printBorder() {
         System.out.println(INDENT + "________________________________________");
     }
 
-    public static void setRunning(boolean isRunning){
+    public static void setRunning(boolean isRunning) {
         Groot.isRunning = isRunning;
     }
 
-    public static void say(String text){
+    public static void say(String text) {
         printBorder();
         System.out.println(INDENT + "I am Groot!");
         System.out.println(INDENT + COLOR_GREEN + text + COLOR_RESET);
@@ -29,52 +26,63 @@ public class Groot {
         }
     }
 
-    public static void say(ArrayList<String> text){
+    public static void say(ArrayList<String> text) {
         printBorder();
         System.out.println(INDENT + "I am Groot!");
-        for (String line : text){
+        for (String line : text) {
             System.out.println(INDENT + COLOR_GREEN + line + COLOR_RESET);
         }
         printBorder();
-        System.out.print("\n$");
+        System.out.print("\n$ ");
     }
 
-    public static void greet(){
+    public static void greet() {
         say("Hello! How may I help?");
     }
 
-    public static void exit(){
+    public static void exit() {
         setRunning(false);
         say("Goodbye! See you again soon.");
     }
 
-    public static void addTask(String[] commandParts)
-    {
-        if (commandParts.length < 2) {
-            say("No task type specified!");
-            return;
-        }
-        String taskType = commandParts[0];
-        String taskDescription = commandParts[1];
+    public static void addTask(String[] commandParts) {
+        String taskType;
+        String taskDescription;
 
-        switch (taskType) {
-        case "todo":
-            taskList.add(new Todo(taskDescription));
-            break;
-        case "deadline":
-            taskList.add(new Deadline(taskDescription));
-            break;
-        case "event":
-            taskList.add(new Event(taskDescription));
-            break;
-        default:
-            taskList.add(new Task(taskDescription));
-            break;
+        // Check if valid command 
+        if (commandParts.length < 2) {
+            if(commandParts[0].matches("(todo)|(deadline)|(event)")) {
+                say("Missing task description!");
+                return;
+            }
+            if(commandParts[0].equals("")) {
+                say("You didn't say anything!");
+                return;
+            }
+            // If commandParts is of length 1 and not (todo|deadline|event), add it as a regular task
+            taskDescription = commandParts[0];
+            taskList.add(Task.createTask(taskDescription));
+        } else {
+
+            taskType = commandParts[0];
+            taskDescription = commandParts[1];
+
+            switch (taskType) {
+            case "todo":
+                taskList.add(Todo.createTodo(taskDescription));
+                break;
+            case "deadline":
+                taskList.add(Deadline.createDeadline(taskDescription));
+                break;
+            case "event":
+                taskList.add(Event.createEvent(taskDescription));
+                break;
+            }
         }
         say("added: " + taskDescription);
     }
 
-    public static void listTask(){
+    public static void listTask() {
         ArrayList<String> taskListText = new ArrayList<>();
         taskListText.add("Here is what you have to do:");
         for (int i = 0; i < taskList.size(); i++) {
@@ -84,7 +92,7 @@ public class Groot {
         say(taskListText);
     }
 
-    public static void handleMark(String command){
+    public static void handleMark(String command) {
         String[] commandParts = command.split(" ");
         if (commandParts.length < 2) {
             say("No task number specified!");
@@ -117,7 +125,7 @@ public class Groot {
     }
 
     //TODO: More robust command string handling needed
-    public static void handleCommand(String command){
+    public static void handleCommand(String command) {
         String[] commandParts = command.split(" ", 2);
         if (commandParts[0].equals("mark") || commandParts[0].equals("unmark")) {
             handleMark(command);
@@ -145,8 +153,8 @@ public class Groot {
         System.out.println(INDENT + "I am\n" + COLOR_GREEN + logo + COLOR_RESET);
         setRunning(true);
         greet();
+        Scanner input = new Scanner(System.in);
         while (isRunning) {
-            Scanner input = new Scanner(System.in);
             handleCommand(input.nextLine());
         }
     }
