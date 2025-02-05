@@ -13,13 +13,13 @@ public class Deadline extends Task {
 
             return new Deadline(deadline, deadlineDue);
         } catch (IndexOutOfBoundsException e) {
-            //refactor to UI class and call say() for exceptions
-            throw new IllegalArgumentException("Wrong format for Deadline.");
+            Ui.say("Wrong format for Deadline.");
+            throw new IllegalArgumentException();
         }
     }
 
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + "(by: " + deadlineDue + ")";
+        return "[D]" + super.getDescription() + " (by: " + deadlineDue + ")";
     }
 }

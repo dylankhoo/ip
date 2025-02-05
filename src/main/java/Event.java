@@ -16,14 +16,14 @@ public class Event extends Task {
             
             return new Event(event, eventStart, eventEnd);
         } catch (IndexOutOfBoundsException e) {
-            //refactor to UI class and call say() for exceptions
-            throw new IllegalArgumentException("");
+            Ui.say("Wrong format for Event.");
+            throw new IllegalArgumentException();
         }
     }
 
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + "(from: " + eventStart + "to: " + eventEnd + ")";
+        return "[E]" + super.getDescription() + " (from: " + eventStart + "to: " + eventEnd + ")";
     }
 }
 
