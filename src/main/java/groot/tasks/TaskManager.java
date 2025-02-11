@@ -1,4 +1,8 @@
+package groot.tasks;
+
 import java.util.ArrayList;
+
+import groot.ui.Ui;
 
 public class TaskManager {
 
@@ -8,21 +12,24 @@ public class TaskManager {
 
         // Check for valid command. A command with < 2 Arguments is invalid 
         if (commandParts.length < 2) {
-            if(commandParts[0].matches("(todo)|(deadline)|(event)")) {
+            if (commandParts[0].matches("(todo)|(deadline)|(event)")) {
                 Ui.say("Missing task description!");
                 return;
-            }
-            if(commandParts[0].equals("")) {
+            } else if (commandParts[0].equals("")) {
                 Ui.say("You didn't say anything!");
                 return;
+            } else {
+                Ui.say("Sorry! I'm not quite sure what you want me to do.");
+                return;
             }
+            
         } else {
 
             taskType = commandParts[0].toLowerCase();
             taskDescription = commandParts[1];
 
             switch (taskType) {
-                case "todo":
+            case "todo":
                 Todo todoTask = Todo.createTodo(taskDescription);
                 if (todoTask != null) {
                     taskList.add(todoTask);
@@ -51,6 +58,7 @@ public class TaskManager {
                 break;
             default:
                 Ui.say("Sorry! I'm not quite sure what you want me to do.");
+                return;
             }
         }
 

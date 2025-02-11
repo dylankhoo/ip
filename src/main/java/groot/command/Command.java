@@ -1,4 +1,10 @@
+package groot.command;
+
 import java.util.ArrayList;
+
+import groot.ui.Ui;
+import groot.tasks.Task;
+import groot.tasks.TaskManager;
 
 public class Command {
 

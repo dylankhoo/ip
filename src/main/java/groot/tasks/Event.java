@@ -1,3 +1,7 @@
+package groot.tasks;
+
+import groot.ui.Ui;
+
 public class Event extends Task {
     private String eventStart;
     private String eventEnd;

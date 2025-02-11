@@ -1,3 +1,7 @@
+package groot.tasks;
+
+import groot.ui.Ui;
+
 public class Deadline extends Task {
     private String deadlineDue;
     public Deadline(String description, String deadlineDue) {
