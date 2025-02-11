@@ -6,7 +6,7 @@ public class TaskManager {
         String taskType;
         String taskDescription;
 
-        // Check for valid command. A command with < 2 Arguments is either invalid or regular Task 
+        // Check for valid command. A command with < 2 Arguments is invalid 
         if (commandParts.length < 2) {
             if(commandParts[0].matches("(todo)|(deadline)|(event)")) {
                 Ui.say("Missing task description!");
@@ -16,26 +16,46 @@ public class TaskManager {
                 Ui.say("You didn't say anything!");
                 return;
             }
-            // If commandParts is of length 1 and not (todo|deadline|event), add it as a regular task
-            taskDescription = commandParts[0];
-            taskList.add(Task.createTask(taskDescription));
         } else {
 
-            taskType = commandParts[0];
+            taskType = commandParts[0].toLowerCase();
             taskDescription = commandParts[1];
 
             switch (taskType) {
-            case "todo":
-                taskList.add(Todo.createTodo(taskDescription));
+                case "todo":
+                Todo todoTask = Todo.createTodo(taskDescription);
+                if (todoTask != null) {
+                    taskList.add(todoTask);
+                } 
                 break;
+                
             case "deadline":
-                taskList.add(Deadline.createDeadline(taskDescription));
+                Deadline deadlineTask = Deadline.createDeadline(taskDescription);
+                if (deadlineTask != null) {
+                    taskList.add(deadlineTask);
+                } 
                 break;
+                
             case "event":
-                taskList.add(Event.createEvent(taskDescription));
+                Event eventTask = Event.createEvent(taskDescription);
+                if (eventTask != null) {
+                    taskList.add(eventTask);
+                } 
                 break;
+        
+            case "task":
+                Task task = Task.createTask(taskDescription);
+                if (task != null) {
+                    taskList.add(task);
+                } 
+                break;
+            default:
+                Ui.say("Sorry! I'm not quite sure what you want me to do.");
             }
         }
-        Ui.say("added: " + taskDescription);
+
+        // Last element of TaskList represents the new task
+        // Get last element and say what was added to the list
+        Ui.say("added: " + taskList.get(taskList.size() - 1).getDescription());
     }
 }

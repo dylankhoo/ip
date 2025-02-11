@@ -13,8 +13,6 @@ public class Groot {
         return isRunning;
     }
 
-        
-
     public static void main(String[] args) {
         Ui.printLogo();
         setRunning(true);

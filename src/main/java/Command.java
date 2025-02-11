@@ -3,26 +3,30 @@ import java.util.ArrayList;
 public class Command {
 
     public static void handleCommand(String command, ArrayList<Task> taskList) {
-        String[] commandParts = command.split(" ", 2);
+        try {
+            String[] commandParts = command.split(" ", 2);
 
-        /* Cases mark and unmark are handled separately first as using first argument 
-        to select switch case has potential issues.
-        e.g. "List out everything to my father" should be a task, not a "list" command */        
-        if (commandParts[0].matches("(mark)||(unmark)")) {
-            handleMark(command, taskList);
-            return;
-        }
-
-        switch (command) {
-        case "bye":
-            Ui.exit();
-            break;
-        case "list":
-            Ui.listTasks(taskList);
-            break;
-        default:
-            TaskManager.addTask(commandParts, taskList);
-            break;
+            /* Cases mark and unmark are handled separately first as using first argument 
+            to select switch case has potential issues.
+            e.g. "List out everything to my father" should be a task, not a "list" command */        
+            if (commandParts[0].matches("(mark)||(unmark)")) {
+                handleMark(command, taskList);
+                return;
+            }
+    
+            switch (command) {
+            case "bye":
+                Ui.exit();
+                break;
+            case "list":
+                Ui.listTasks(taskList);
+                break;
+            default:
+                TaskManager.addTask(commandParts, taskList);
+                break;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            Ui.say("Sorry! I'm not quite sure what you want me to do.");
         }
     }
 
