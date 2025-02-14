@@ -33,29 +33,34 @@ public class TaskManager {
                 Todo todoTask = Todo.createTodo(taskDescription);
                 if (todoTask != null) {
                     taskList.add(todoTask);
+                    break;
                 } 
-                break;
-                
+                return;
+
             case "deadline":
                 Deadline deadlineTask = Deadline.createDeadline(taskDescription);
                 if (deadlineTask != null) {
                     taskList.add(deadlineTask);
+                    break;
                 } 
-                break;
+                return;
                 
             case "event":
                 Event eventTask = Event.createEvent(taskDescription);
                 if (eventTask != null) {
                     taskList.add(eventTask);
+                    break;
                 } 
-                break;
+                return;
         
             case "task":
                 Task task = Task.createTask(taskDescription);
                 if (task != null) {
                     taskList.add(task);
+                    break;
                 } 
-                break;
+                return;
+                
             default:
                 Ui.say("Sorry! I'm not quite sure what you want me to do.");
                 return;

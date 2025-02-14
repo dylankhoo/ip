@@ -21,7 +21,7 @@ public class Event extends Task {
             return new Event(event, eventStart, eventEnd);
         } catch (IndexOutOfBoundsException e) {
             Ui.say("Wrong format for Event!" + Ui.NEW_LINE +
-                "Use the format {Event /from Start Date /to End Date}");
+                Ui.INDENT + "Use the format {Event /from Start Date /to End Date}");
             return null;
         }
     }

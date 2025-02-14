@@ -18,7 +18,7 @@ public class Deadline extends Task {
             return new Deadline(deadline, deadlineDue);
         } catch (IndexOutOfBoundsException e) {
             Ui.say("Wrong format for Deadline!" + Ui.NEW_LINE +
-                "Use the format: {Task /by due date}");
+                Ui.INDENT + "Use the format: {Task /by due date}");
             return null;
         }
     }
