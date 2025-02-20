@@ -22,7 +22,7 @@ public class Command {
     
             switch (commandParts[0]) {
             case "bye":
-                Ui.exit();
+                Ui.exit(taskList);
                 break;
             case "list":
                 Ui.listTasks(taskList);

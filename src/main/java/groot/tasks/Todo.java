@@ -3,6 +3,7 @@ package groot.tasks;
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
+        taskType = "T";
     }
 
     public static Todo createTodo(String description) {

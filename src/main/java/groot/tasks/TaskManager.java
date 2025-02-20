@@ -2,6 +2,7 @@ package groot.tasks;
 
 import java.util.ArrayList;
 
+import groot.data.Data;
 import groot.ui.Ui;
 
 public class TaskManager {
@@ -44,7 +45,7 @@ public class TaskManager {
                     break;
                 } 
                 return;
-                
+
             case "event":
                 Event eventTask = Event.createEvent(taskDescription);
                 if (eventTask != null) {
