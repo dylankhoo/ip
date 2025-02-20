@@ -5,10 +5,13 @@ import groot.ui.Ui;
 public class Event extends Task {
     private String eventStart;
     private String eventEnd;
-    public Event(String description, String eventStart, String eventEnd) {
+
+    public Event(String description, String eventStart, String eventEnd, String key) {
         super(description);
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
+        taskType = "E";
+        this.key = key;
     }
 
     public static Event createEvent(String description) {
@@ -18,7 +21,7 @@ public class Event extends Task {
             String eventStart = descriptionParts[1].trim();
             String eventEnd = descriptionParts[2].trim();
             
-            return new Event(event, eventStart, eventEnd);
+            return new Event(event, eventStart, eventEnd, description);
         } catch (IndexOutOfBoundsException e) {
             Ui.say("Wrong format for Event!" + Ui.NEW_LINE +
                 "Use the format {Event /from Start Date /to End Date}");

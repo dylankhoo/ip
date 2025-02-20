@@ -4,9 +4,11 @@ import groot.ui.Ui;
 
 public class Deadline extends Task {
     private String deadlineDue;
-    public Deadline(String description, String deadlineDue) {
+    public Deadline(String description, String deadlineDue, String key) {
         super(description);
         this.deadlineDue = deadlineDue;
+        taskType = "D";
+        this.key = key;
     }
 
     public static Deadline createDeadline(String description) {
@@ -15,7 +17,7 @@ public class Deadline extends Task {
             String deadline = descriptionParts[0].trim();
             String deadlineDue = descriptionParts[1].trim();
 
-            return new Deadline(deadline, deadlineDue);
+            return new Deadline(deadline, deadlineDue, description);
         } catch (IndexOutOfBoundsException e) {
             Ui.say("Wrong format for Deadline!" + Ui.NEW_LINE +
                 "Use the format: {Task /by due date}");

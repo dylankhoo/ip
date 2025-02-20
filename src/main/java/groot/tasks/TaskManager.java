@@ -2,6 +2,7 @@ package groot.tasks;
 
 import java.util.ArrayList;
 
+import groot.data.Data;
 import groot.ui.Ui;
 
 public class TaskManager {
@@ -40,7 +41,7 @@ public class TaskManager {
                 Deadline deadlineTask = Deadline.createDeadline(taskDescription);
                 if (deadlineTask != null) {
                     taskList.add(deadlineTask);
-                } 
+                }
                 break;
                 
             case "event":
