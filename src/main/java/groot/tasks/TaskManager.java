@@ -45,7 +45,7 @@ public class TaskManager {
                     break;
                 } 
                 return;
-
+                
             case "event":
                 Event eventTask = Event.createEvent(taskDescription);
                 if (eventTask != null) {
