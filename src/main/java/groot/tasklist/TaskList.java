@@ -137,4 +137,21 @@ public class TaskList {
         // Get last element and say what was added to the list
         Ui.say("added: " + taskList.get(taskList.size() - 1).getDescription());
     }
+
+    public static void findTask(String key) {
+        if(key.isBlank()) {
+            Ui.say("You forgot the search key!"); 
+            return;
+        }
+
+        ArrayList<String> taskListText = new ArrayList<>();
+        taskListText.add("Here are the matching tasks:");
+        for (int i = 0; i < TaskList.getSize(); i++) {
+            // Add all matching tasks descriptions to the taskListText
+            if(TaskList.getTaskList().get(i).getDescription().contains(key)) {
+                taskListText.add(Ui.INDENT + (i + 1) + "." + TaskList.getTaskList().get(i).getDescription());
+            }
+        }
+        Ui.say(taskListText);
+    }
 }
