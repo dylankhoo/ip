@@ -11,7 +11,10 @@ import java.util.ArrayList;
 
 import groot.tasklist.TaskList;
 import groot.ui.Ui;
-import groot.tasks.*;
+import groot.tasks.Task;
+import groot.tasks.Todo;
+import groot.tasks.Event;
+import groot.tasks.Deadline;
 
 public class Storage {
     private static final Path dataPath = Paths.get("src/main/java/groot/storage", "data.txt");
@@ -32,7 +35,7 @@ public class Storage {
 
                     String[] dataComponents = line.split(" \\| ");
                     String taskType = dataComponents[0];
-                    Boolean taskCompleted = dataComponents[1].equals("1");
+                    Boolean isTaskCompleted = dataComponents[1].equals("1");
                     String taskDescription = dataComponents[2];
                     
                     switch (taskType) {
@@ -61,7 +64,7 @@ public class Storage {
                         return null;
                     }
 
-                    if (taskCompleted) {
+                    if (isTaskCompleted) {
                         taskList.get(taskList.size() - 1)
                         .setDone(true);
                     }
@@ -77,6 +80,7 @@ public class Storage {
 
     /** 
      * Writes data to data.txt for saving.
+     * Prints error if file is not found.
      */     
     public static void writeData() {
         try {
