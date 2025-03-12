@@ -1,4 +1,4 @@
-package groot.data;
+package groot.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import groot.ui.Ui;
 import groot.tasks.*;
 
-public class Data {
+public class Storage {
     private static final Path dataPath = Paths.get("src/main/java/groot/data", "data.txt");
 
     public static ArrayList<Task> loadData() {

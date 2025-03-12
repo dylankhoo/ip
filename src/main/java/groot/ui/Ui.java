@@ -3,7 +3,8 @@ package groot.ui;
 import java.util.ArrayList;
 
 import groot.Groot;
-import groot.data.Data;
+import groot.storage.Storage;
+import groot.storage.Storage;
 import groot.tasks.Task;
 
 public class Ui {
@@ -48,7 +49,7 @@ public class Ui {
 
     public static void exit(ArrayList<Task> taskList) {
         Groot.setRunning(false);
-        Data.writeData(taskList);
+        Storage.writeData(taskList);
         say("Goodbye! See you again soon.");
     }
 
