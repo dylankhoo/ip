@@ -31,6 +31,9 @@ public class Parser {
             case "delete":
                 TaskList.delete(command);
                 break;
+            case "find":
+                TaskList.findTask(commandParts[1]);
+                break;
             default:
                 TaskList.addTask(commandParts);
                 break;
