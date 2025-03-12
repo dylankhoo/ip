@@ -21,6 +21,12 @@ public class Event extends Task {
             String eventStart = descriptionParts[1].trim();
             String eventEnd = descriptionParts[2].trim();
             
+            if(event.isBlank() || eventStart.isBlank() || eventEnd.isBlank()){
+                Ui.say("Wrong format for Event!" + Ui.NEW_LINE +
+                    Ui.INDENT + "Use the format {Event /from Start Date /to End Date}");
+                return null;
+            }
+            
             return new Event(event, eventStart, eventEnd, description);
         } catch (IndexOutOfBoundsException e) {
             Ui.say("Wrong format for Event!" + Ui.NEW_LINE +

@@ -1,1 +1,3 @@
 E | 0 | dylan attend CS2113 lecture Friday 21 Feb 2025 /from 4 /to 6pm
+T | 0 | homework
+D | 0 |   testspace   /by  some time  

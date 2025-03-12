@@ -9,11 +9,12 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import groot.tasklist.TaskList;
 import groot.ui.Ui;
 import groot.tasks.*;
 
 public class Storage {
-    private static final Path dataPath = Paths.get("src/main/java/groot/data", "data.txt");
+    private static final Path dataPath = Paths.get("src/main/java/groot/storage", "data.txt");
 
     public static ArrayList<Task> loadData() {
         File dataFile = dataPath.toFile();
@@ -21,7 +22,6 @@ public class Storage {
         if (dataFile.exists()) {
             try {
                 Scanner input = new Scanner(dataFile);
-                
                 while (input.hasNextLine()) {
                     String line = input.nextLine();
 
@@ -70,11 +70,11 @@ public class Storage {
         return taskList;
     }
 
-    public static void writeData(ArrayList<Task> taskList) {
+    public static void writeData() {
         try {
             FileWriter dataFile = new FileWriter(dataPath.toFile(), false);
-            for (int i = 0; i < taskList.size(); i++) {
-                dataFile.write(taskList.get(i).getKey() + Ui.NEW_LINE);
+            for (int i = 0; i < TaskList.getSize(); i++) {
+                dataFile.write(TaskList.getTaskList().get(i).getKey() + Ui.NEW_LINE);
             }
             dataFile.close();
         } catch (IOException e) {

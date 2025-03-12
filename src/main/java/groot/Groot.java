@@ -2,16 +2,16 @@ package groot;
 
 import java.util.Scanner;
 
-import groot.command.Command;
+import groot.parser.Parser;
+import groot.storage.Storage;
+import groot.tasklist.TaskList;
 import groot.ui.Ui;
 import groot.tasks.*;
-import groot.data.Data;
 
 import java.util.ArrayList;
 public class Groot {
 
     private static boolean isRunning;
-    private static ArrayList<Task> taskList;
 
     public static void setRunning(boolean isRunning) {
         Groot.isRunning = isRunning;
@@ -26,10 +26,10 @@ public class Groot {
         setRunning(true);
         Ui.greet();
         Scanner input = new Scanner(System.in);
-        taskList = Data.loadData();
+        TaskList.begin();
         // Continue to take input while Groot is running
         while (isRunning) {
-            Command.handleCommand(input.nextLine(), taskList);
+            Parser.handleCommand(input.nextLine());
         }
     }
 }  

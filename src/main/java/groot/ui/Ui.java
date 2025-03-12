@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import groot.Groot;
 import groot.storage.Storage;
+import groot.tasklist.TaskList;
 import groot.storage.Storage;
 import groot.tasks.Task;
 
@@ -47,9 +48,9 @@ public class Ui {
         say("Hello! How may I help?");
     }
 
-    public static void exit(ArrayList<Task> taskList) {
+    public static void exit() {
         Groot.setRunning(false);
-        Storage.writeData(taskList);
+        Storage.writeData();
         say("Goodbye! See you again soon.");
     }
 
@@ -62,14 +63,14 @@ public class Ui {
         System.out.println(COLOR_GREEN + logo + COLOR_RESET);
     }
 
-    public static void listTasks(ArrayList<Task> taskList) {
+    public static void listTasks() {
         ArrayList<String> taskListText = new ArrayList<>();
         taskListText.add("Here is what you have to do:");
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < TaskList.getSize(); i++) {
             // Add all tasks descriptions to the taskListText
-            taskListText.add(Ui.INDENT + (i + 1) + "." + taskList.get(i).getDescription());
+            taskListText.add(Ui.INDENT + (i + 1) + "." + TaskList.getTaskList().get(i).getDescription());
         }
-        taskListText.add("You have " + taskList.size() + " tasks");
+        taskListText.add("You have " + TaskList.getSize() + " tasks");
         say(taskListText);
     }
 }

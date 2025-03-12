@@ -16,6 +16,12 @@ public class Deadline extends Task {
             String[] descriptionParts = description.split(" /by ", 2);
             String deadline = descriptionParts[0].trim();
             String deadlineDue = descriptionParts[1].trim();
+            
+            if(deadline.isBlank() || deadlineDue.isBlank()){
+                Ui.say("Wrong format for Deadline!" + Ui.NEW_LINE +
+                    Ui.INDENT + "Use the format: {Task /by due date}");
+                return null;
+            }
 
             return new Deadline(deadline, deadlineDue, description);
         } catch (IndexOutOfBoundsException e) {

@@ -1,13 +1,62 @@
-package groot.tasks;
+package groot.tasklist;
 
 import java.util.ArrayList;
 
-import groot.data.Data;
+import groot.storage.Storage;
+import groot.tasks.Deadline;
+import groot.tasks.Event;
+import groot.tasks.Task;
+import groot.tasks.Todo;
 import groot.ui.Ui;
 
-public class TaskManager {
+public class TaskList {
+    public static ArrayList<Task> taskList;
 
-    public static void addTask(String[] commandParts, ArrayList<Task> taskList) {
+    public static void begin() {
+        taskList = Storage.loadData();
+    }
+
+    public static ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public static int getSize() {
+        return taskList.size();
+    }
+    
+    public static void delete(String command) {
+        String[] commandParts = command.split(" ");
+        if (commandParts.length < 2) {
+            Ui.say("No task number specified!");
+            return;
+        }
+        if (commandParts.length > 2) {
+            Ui.say("Too many arguments!");
+            return;
+        }
+        try {
+            // taskNum is 1 less than user input as 0 index
+            int taskNum = Integer.parseInt(commandParts[1]) - 1;
+
+            // Guard to check if taskNum is valid
+            if (taskNum < 0 || taskNum >= taskList.size()) {
+                    Ui.say("Invalid task number!");
+                    return;
+            }
+            
+            ArrayList<String> deleteText = new ArrayList<>();
+            deleteText.add("I have deleted this task:");
+            deleteText.add(Ui.INDENT + taskList.get(taskNum).getDescription());
+            taskList.remove(taskNum);
+            deleteText.add("You now have " + taskList.size() + " tasks");
+            Ui.say(deleteText);
+
+        } catch (NumberFormatException e) {
+            Ui.say("Task number must be an integer!");
+        }
+    }
+
+    public static void addTask(String[] commandParts) {
         String taskType;
         String taskDescription;
 
