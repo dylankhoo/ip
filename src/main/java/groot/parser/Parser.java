@@ -8,13 +8,21 @@ import groot.tasklist.TaskList;
 
 public class Parser {
 
+    /** 
+     * Parses user input to check if valid command. 
+     * Calls corresponding method based on command.
+     * Writes to storage after if a corresponding method is called.
+     */     
     public static void handleCommand(String command) {
         try {
             String[] commandParts = command.split(" ", 2);
 
-            /* Cases mark, unmark and delete are handled separately first as using first argument 
-            to select switch case has potential issues.
-            e.g. "List out everything to my father" should be a task, not a "list" command */        
+            /** 
+             * Cases mark, unmark and delete are handled separately first as using first argument 
+             * to select switch case has potential issues.
+             * e.g. "List out everything to my father" should be a task, not a "list" command 
+             */      
+
             if (commandParts[0].matches("(mark)||(unmark)")) {
                 handleMark(command);
                 Storage.writeData();
@@ -44,6 +52,11 @@ public class Parser {
         }
     }
 
+    /** 
+     * Method that to handle marking and unmarking of tasks
+     * @param command the unparsed mark or unmark command, inclusive of task index 
+     */     
+
     public static void handleMark(String command) {
         String[] commandParts = command.split(" ");
         if (commandParts.length < 2) {
@@ -64,23 +77,23 @@ public class Parser {
                     return;
             }
             
-            ArrayList<String> markText = new ArrayList<>();
+            ArrayList<String> markedTexts = new ArrayList<>();
             if (commandParts[0].equals("mark")) {
                 // Command "mark"
                 TaskList.getTaskList()
                         .get(taskNum)
                         .setDone(true); 
-                markText.add("I've marked this task as done.");
+                markedTexts.add("I've marked this task as done.");
             } else {
                 // Command "unmark"
                 TaskList.getTaskList()
                         .get(taskNum)
                         .setDone(false);
-                markText.add("I've marked this task as not done.");
+                markedTexts.add("I've marked this task as not done.");
             }
 
-            markText.add(Ui.INDENT + TaskList.getTaskList().get(taskNum).getDescription());
-            Ui.say(markText);
+            markedTexts.add(Ui.INDENT + TaskList.getTaskList().get(taskNum).getDescription());
+            Ui.say(markedTexts);
         } catch (NumberFormatException e) {
             Ui.say("Task number must be an integer!");
         }
