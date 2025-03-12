@@ -16,6 +16,11 @@ import groot.tasks.*;
 public class Storage {
     private static final Path dataPath = Paths.get("src/main/java/groot/storage", "data.txt");
 
+    /** 
+     * Loads data from data.txt file. Method is called only after startup.
+     * Parses data from data.txt file to taskList.
+     * @return taskList Task List containing all task data 
+     */     
     public static ArrayList<Task> loadData() {
         File dataFile = dataPath.toFile();
         ArrayList<Task> taskList = new ArrayList<>();
@@ -70,6 +75,9 @@ public class Storage {
         return taskList;
     }
 
+    /** 
+     * Writes data to data.txt for saving.
+     */     
     public static void writeData() {
         try {
             FileWriter dataFile = new FileWriter(dataPath.toFile(), false);

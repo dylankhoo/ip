@@ -14,6 +14,14 @@ public class Event extends Task {
         this.key = key;
     }
 
+    /** 
+     * Method that to create Event.
+     * Parses user input and creates Event.
+     * returns null if wrong format.
+     * @param description unparsed Event.
+     */     
+    
+
     public static Event createEvent(String description) {
         try {
             String[] descriptionParts = description.split("( /from )|( /to )", 3);
@@ -26,7 +34,7 @@ public class Event extends Task {
                     Ui.INDENT + "Use the format {Event /from Start Date /to End Date}");
                 return null;
             }
-            
+
             return new Event(event, eventStart, eventEnd, description);
         } catch (IndexOutOfBoundsException e) {
             Ui.say("Wrong format for Event!" + Ui.NEW_LINE +

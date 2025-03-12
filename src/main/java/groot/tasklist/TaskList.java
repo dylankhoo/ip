@@ -12,6 +12,9 @@ import groot.ui.Ui;
 public class TaskList {
     public static ArrayList<Task> taskList;
 
+    /** 
+     * Calls method to load data on Groot startup.
+     */     
     public static void begin() {
         taskList = Storage.loadData();
     }
@@ -23,6 +26,12 @@ public class TaskList {
     public static int getSize() {
         return taskList.size();
     }
+
+    /** 
+     * Method that to remove existing task from taskList.
+     * Removes the task corresponding to the task index provided.
+     * @param command index of task to delete.
+     */     
     
     public static void delete(String command) {
         String[] commandParts = command.split(" ");
@@ -55,6 +64,13 @@ public class TaskList {
             Ui.say("Task number must be an integer!");
         }
     }
+
+
+    /** 
+     * Method to add task to taskList.
+     * Checks taskType and creates corresponding type.
+     * @param commandParts string array containing taskType and taskDescription.
+     */     
 
     public static void addTask(String[] commandParts) {
         String taskType;

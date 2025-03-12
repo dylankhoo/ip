@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import groot.Groot;
 import groot.storage.Storage;
 import groot.tasklist.TaskList;
-import groot.storage.Storage;
-import groot.tasks.Task;
 
 public class Ui {
 
@@ -63,6 +61,9 @@ public class Ui {
         System.out.println(COLOR_GREEN + logo + COLOR_RESET);
     }
 
+    /** 
+     * Formats all tasks in task list and print
+     */     
     public static void listTasks() {
         ArrayList<String> taskListText = new ArrayList<>();
         taskListText.add("Here is what you have to do:");
