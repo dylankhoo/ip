@@ -11,6 +11,13 @@ public class Deadline extends Task {
         this.key = key;
     }
 
+    /** 
+     * Method that to create Deadline.
+     * Parses user input and creates Deadline.
+     * returns null if wrong format.
+     * @param description unparsed Deadline.
+     */     
+    
     public static Deadline createDeadline(String description) {
         try {
             String[] descriptionParts = description.split(" /by ", 2);

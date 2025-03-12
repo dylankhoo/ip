@@ -1,4 +1,8 @@
-E | 0 | dylan attend CS2113 lecture Friday 21 Feb 2025 /from 4 /to 6pm
 T | 0 | homework
 D | 0 |   testspace   /by  some time  
 D | 0 | cry about homework /by 6 jan
+T | 0 | cry
+D | 0 | cry /by tmr
+T | 0 | cry
+E | 0 | (description) /from (start) /to (end)
+N | 0 | hi
