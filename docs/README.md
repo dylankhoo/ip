@@ -63,7 +63,7 @@ Deadlines have a compulsory `by` parameter to indicate the deadline date.
 
 Usage:
 
-`deadline (description) \by (when)`
+`deadline (description) /by (when)`
 
 Expected outcome:
 
@@ -81,7 +81,7 @@ Events have a compulsory `from` and `to` parameters to indicate the start and en
 
 Usage:
 
-`event (description) \from (start) \to (end)`
+`event (description) /from (start) /to (end)`
 
 Expected outcome:
 
