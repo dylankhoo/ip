@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ import groot.tasks.Event;
 import groot.tasks.Deadline;
 
 public class Storage {
-    private static final Path dataPath = Paths.get("src/main/java/groot/storage", "data.txt");
+    private static final Path dataPath = Paths.get("./storage","data.txt");
 
     /** 
      * Loads data from data.txt file. Method is called only after startup.
@@ -73,6 +74,21 @@ public class Storage {
             } catch (FileNotFoundException e) {
                 Ui.say("Data file missing!");
                 return null;
+            }
+        } else {
+            try {
+                // Create directory if it doesn't exist
+                Path directory = dataPath.getParent();
+                if (!Files.exists(directory)) {
+                    Files.createDirectories(directory);
+                }
+    
+                // Create the file if it doesn't exist
+                if (!Files.exists(dataPath)) {
+                    Files.createFile(dataPath);
+                }
+            } catch (IOException e) {
+                Ui.say("Error creating data file!");
             }
         }
         return taskList;
