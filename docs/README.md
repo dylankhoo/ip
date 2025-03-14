@@ -1,4 +1,4 @@
-# MAX User Guide
+# GROOT User Guide
 
 Groot is the individual project component for the NUS course CS2113
 
