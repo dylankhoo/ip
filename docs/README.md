@@ -25,7 +25,7 @@ Groot is a personal task tracker that helps you manage your tasks efficiently
     - [`mark` - Tag task as done](#mark---tag-tasks-as-complete)
     - [`unmark` - Tag task as undone](#unmark---tag-task-as-incomplete)
     - [`delete` - Remove a Task](#delete---remove-a-task)
-    - [`fetch` or `find` - Query for a task](#find---search-for-a-task)
+    - [`find` - Query for a task](#find---search-for-a-task)
     - [`bye` - Exit Groot](#bye---exit-groot)
 
 ## Task Types
